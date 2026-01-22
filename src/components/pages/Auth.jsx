@@ -14,8 +14,8 @@ const Auth = () => {
                     <label>
                         <input type="checkbox" name="remember" /> Zapamiętaj mnie
                     </label>
-                    <p>Zapomniałeś <a href="#">hasła?</a></p>
-                    <p>Nie masz jeszcze konta? <a href="#" onClick={() => setIsRegistered(!isRegistered)}>Stwórz je!</a></p>
+                    <p>Zapomniałeś <a>hasła?</a></p>
+                    <p>Nie masz jeszcze konta? <a onClick={() => setIsRegistered(!isRegistered)}>Stwórz je!</a></p>
                 </form>
             </div>
         )
@@ -28,7 +28,7 @@ const Auth = () => {
                     <input name="password" placeholder="Hasło" type="password" required />
                     <input name="password" placeholder="Potwierdź hasło" type="password" required />
                     <button type="submit">Stwórz konto</button>
-                    <p>Masz już konto? <a href="#" onClick={() => setIsRegistered(!isRegistered)}>Zaloguj się!</a></p>
+                    <p>Masz już konto? <a onClick={() => setIsRegistered(!isRegistered)}>Zaloguj się!</a></p>
                 </form>
             </div>
         )
