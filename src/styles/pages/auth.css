@@ -1,0 +1,37 @@
+.authwrapper {
+    display: flex;
+    justify-content: center;
+}
+.auth {
+    width: 50%;
+    background-color: rgb(206, 203, 203);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+.auth h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 20px 0;
+}
+.auth .info {
+    font-size: 0.75em;
+}
+input[type="email"],input[type="password"] {
+    display: inline-block;
+    width: 60%;
+    height: 3em;
+    border: 2px gray solid;
+}
+button[type="submit"] {
+    width: 30%;
+    height: 2.5em;
+}
+.auth p,.auth label {
+    font-size: 1em;
+}
+.auth label {
+    margin: 0 0 20px 0;
+}

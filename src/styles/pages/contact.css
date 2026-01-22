@@ -1,0 +1,15 @@
+.contactwrapper {
+    display: flex;
+    justify-content: center;
+}
+.contact {
+    width: 60%;
+}
+.contact h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 20px 0;
+}
+.contact li {
+    margin: 10px 0 10px 15px;
+}
