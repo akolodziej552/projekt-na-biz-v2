@@ -1,4 +1,4 @@
-import "../../styles/pages/contact.css";
+import "../styles/pages/contact.css";
 const Contact = () => {
     return (
         <div className="contactwrapper">
