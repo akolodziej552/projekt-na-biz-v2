@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Menu from "./pages/Menu";
+import Orders from "./pages/Orders";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./styles/app.css";
 import { Routes, Route } from "react-router-dom";
@@ -25,6 +26,7 @@ const App = () => {
                     <ProtectedRoute>
                         <Menu />
                     </ProtectedRoute>} />
+                <Route path="/orders" element={<Orders/>}/>
             </Routes>
         </div>
     )
