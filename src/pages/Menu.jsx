@@ -12,6 +12,7 @@ const products = [
 
 const Menu = () => {
     const { cart, addToCart, removeFromCart, clearCart, totalPrice } =  useContext(CartContext);
+    const [pickupTime, setPickupTime] = useState("");
     const generateOrderNumber = () => {
       let counter = localStorage.getItem("orderCounter");
 
@@ -29,13 +30,20 @@ const Menu = () => {
     const handleOrder = () => {
       if (cart.length === 0) return;
 
+      if (!pickupTime) {
+        alert("Wybierz godzine odbioru!")
+        return;
+      }
+
         const orderNumber = generateOrderNumber();
 
         const newOrder = {
             number: orderNumber,
             items: cart,
             total: totalPrice,
-            date: new Date().toLocaleString()
+            pickupTime: pickupTime,
+            date: new Date().toLocaleString(),
+            status: "Nowe"
         };
 
         const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -44,32 +52,36 @@ const Menu = () => {
 
         alert(`Zamówienie złożone!\nNumer odbioru: ${orderNumber}`);
         clearCart();
+        setPickupTime("");
     };
     return (
          <div>
-      <h1>Menu</h1>
+            <h1>Menu</h1>
 
-      {products.map((product) => (
-        <div key={product.id} style={{ marginBottom: "10px" }}>
-          {product.name} - {product.price} zł
-          <button onClick={() => addToCart(product)}>
-            Dodaj do koszyka
-          </button>
-        </div>
-      ))}
+            {products.map((product) => (
+              <div key={product.id} style={{ marginBottom: "10px" }}>
+                {product.name} - {product.price} zł
+                <button onClick={() => addToCart(product)}>
+                  Dodaj do koszyka
+                </button>
+              </div>
+            ))}
 
-      <h2>Koszyk</h2>
-      {cart.map((item) => (
-        <div key={item.id}>
-          {item.name} x{item.quantity}
-          <button onClick={() => addToCart(item)}>+</button>
-          <button onClick={() => removeFromCart(item.id)}>-</button>
-        </div>
-      ))}
-      <h3>Suma: {totalPrice}zł</h3>
-      {cart.length > 0 && (
-        <button onClick={handleOrder}>Złóż zamówienie</button>
-      )}
+            <h2>Koszyk</h2>
+            {cart.map((item) => (
+              <div key={item.id}>
+                {item.name} x{item.quantity}
+                <button onClick={() => addToCart(item)}>+</button>
+                <button onClick={() => removeFromCart(item.id)}>-</button>
+              </div>
+            ))}
+            <h3>Suma: {totalPrice}zł</h3>
+            {cart.length > 0 && (
+              <button onClick={handleOrder}>Złóż zamówienie</button>
+            )}
+            <h3>Godzina odbioru:</h3>
+
+            <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)}/>
     </div>
     )
 }

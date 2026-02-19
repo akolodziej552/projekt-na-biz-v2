@@ -14,6 +14,7 @@ const Nav = () => {
             <Link to="/menu">Menu <MdOutlineMenuBook className="navicon" /></Link>
             <Link to="/contact">Kontakt <FaEnvelope className="navicon" /></Link>
             {user && <Link to="/orders">Moje zamówienia</Link>}
+            {user?.role === "admin" && (<Link to="/admin">Panel admina</Link>)}
         </nav>
     )
 };

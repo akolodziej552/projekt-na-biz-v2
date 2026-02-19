@@ -12,14 +12,20 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const handleLogin = () => {
-        const success = login(email, password);
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
-        if (success) {
-            alert("Zalogowano!");
-            navigate("/menu");
-        } else {
-            alert("Błędne dane!");
+        const foundUser = users.find(
+            (u) => u.email === email && u.password === password
+        );
+
+        if (!foundUser) {
+            alert("Nieprawidłowy email lub hasło")
+            return;
         }
+        localStorage.setItem("currentUser", JSON.stringify(foundUser));
+
+        alert("Zalogowano!");
+        navigate("/menu");
     }
     return (
         <div className="authwrapper">

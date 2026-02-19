@@ -6,7 +6,26 @@ const Register = () => {
     const [password, setPassword] = useState("");
 
     const handleRegister = () => {
-        localStorage.setItem("user", JSON.stringify({ email, password }));
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+
+        const userExists = users.find((u) => u.email === email);
+
+        if (userExists) {
+            alert("Użytkownik już istnieje!");
+            return;
+        }
+
+        const newUser = {
+            id: Date.now(),
+            email,
+            password,
+            role: "user"
+        };
+
+        users.push(newUser);
+
+        localStorage.setItem("users", JSON.stringify(users));
+
         alert("Konto utworzone!");
     };
     return (
