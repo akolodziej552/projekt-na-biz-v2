@@ -12,29 +12,31 @@ export function AuthProvider({children}) {
         }
     }, []);
 
-    const login = (email,password) => {
-        const savedUser = JSON.parse(localStorage.getItem("user"));
+    const login = (email, password) => {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
-        if (
-            savedUser &&
-            savedUser.email == email &&
-            savedUser.password == password
-        ) {
-            setUser(savedUser)
-            localStorage.setItem("loggedUser", JSON.stringify(savedUser));
+        const foundUser = users.find(
+            (u) => u.email === email && u.password === password
+        );
+
+        if (foundUser) {
+            setUser(foundUser);
+            localStorage.setItem("loggedUser", JSON.stringify(foundUser));
+            localStorage.setItem("currentUser", JSON.stringify(foundUser));
             return true;
         }
         return false;
-    }
+    };
 
     const logout = () => {
         setUser(null);
         localStorage.removeItem("loggedUser");
+        localStorage.removeItem("currentUser");
     };
 
     return (
         <AuthContext.Provider value={{user, login, logout}}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }

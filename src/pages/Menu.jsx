@@ -1,89 +1,146 @@
 import "../styles/pages/menu.css";
-import ProductCard from "../components/ProductCard";
 import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 const products = [
-        { id: 1, name: "Zapiekanka", price: 8 },
-        { id: 2, name: "Hot Dog", price: 6 },
-        { id: 3, name: "Kanapka", price: 5 },
-        { id: 4, name: "Sok", price: 4 },
-    ]
+    { id: 1, name: "Zapiekanka", price: 8, emoji: "🥖" },
+    { id: 2, name: "Hot Dog", price: 6, emoji: "🌭" },
+    { id: 3, name: "Kanapka", price: 5, emoji: "🥪" },
+    { id: 4, name: "Sok", price: 4, emoji: "🧃" },
+];
 
 const Menu = () => {
-    const { cart, addToCart, removeFromCart, clearCart, totalPrice } =  useContext(CartContext);
+    const { cart, addToCart, removeFromCart, clearCart, totalPrice } = useContext(CartContext);
     const [pickupTime, setPickupTime] = useState("");
+    const [ordered, setOrdered] = useState(false);
+
     const generateOrderNumber = () => {
-      let counter = localStorage.getItem("orderCounter");
-
-      if (!counter) {
-        counter = 1;
-      } else {
-        counter = parseInt(counter) + 1;
-      }
-
-      localStorage.setItem("orderCounter", counter);
-
-      return `ZAM-${String(counter).padStart(4, "0")}`;
-    }
+        let counter = localStorage.getItem("orderCounter");
+        counter = counter ? parseInt(counter) + 1 : 1;
+        localStorage.setItem("orderCounter", counter);
+        return `ZAM-${String(counter).padStart(4, "0")}`;
+    };
 
     const handleOrder = () => {
-      if (cart.length === 0) return;
-
-      if (!pickupTime) {
-        alert("Wybierz godzine odbioru!")
-        return;
-      }
+        if (cart.length === 0) return;
+        if (!pickupTime) {
+            alert("Wybierz godzinę odbioru!");
+            return;
+        }
 
         const orderNumber = generateOrderNumber();
-
         const newOrder = {
             number: orderNumber,
             items: cart,
             total: totalPrice,
-            pickupTime: pickupTime,
+            pickupTime,
             date: new Date().toLocaleString(),
-            status: "Nowe"
+            status: "Nowe",
         };
 
         const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
-
         localStorage.setItem("orders", JSON.stringify([...existingOrders, newOrder]));
 
-        alert(`Zamówienie złożone!\nNumer odbioru: ${orderNumber}`);
+        setOrdered(true);
         clearCart();
         setPickupTime("");
+        setTimeout(() => setOrdered(false), 4000);
     };
+
+    const getQuantity = (id) => {
+        const item = cart.find((i) => i.id === id);
+        return item ? item.quantity : 0;
+    };
+
     return (
-         <div>
-            <h1>Menu</h1>
+        <div className="menu-page">
+            <div className="menu-layout">
 
-            {products.map((product) => (
-              <div key={product.id} style={{ marginBottom: "10px" }}>
-                {product.name} - {product.price} zł
-                <button onClick={() => addToCart(product)}>
-                  Dodaj do koszyka
-                </button>
-              </div>
-            ))}
+                {/* PRODUKTY */}
+                <section className="menu-products">
+                    <h1 className="menu-title">Menu</h1>
+                    <div className="products-grid">
+                        {products.map((product) => {
+                            const qty = getQuantity(product.id);
+                            return (
+                                <div key={product.id} className="product-card">
+                                    <span className="product-emoji">{product.emoji}</span>
+                                    <div className="product-info">
+                                        <span className="product-name">{product.name}</span>
+                                        <span className="product-price">{product.price} zł</span>
+                                    </div>
+                                    <div className="product-controls">
+                                        {qty > 0 ? (
+                                            <>
+                                                <button className="qty-btn" onClick={() => removeFromCart(product.id)}>−</button>
+                                                <span className="qty-count">{qty}</span>
+                                                <button className="qty-btn" onClick={() => addToCart(product)}>+</button>
+                                            </>
+                                        ) : (
+                                            <button className="add-btn" onClick={() => addToCart(product)}>Dodaj</button>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
 
-            <h2>Koszyk</h2>
-            {cart.map((item) => (
-              <div key={item.id}>
-                {item.name} x{item.quantity}
-                <button onClick={() => addToCart(item)}>+</button>
-                <button onClick={() => removeFromCart(item.id)}>-</button>
-              </div>
-            ))}
-            <h3>Suma: {totalPrice}zł</h3>
-            {cart.length > 0 && (
-              <button onClick={handleOrder}>Złóż zamówienie</button>
-            )}
-            <h3>Godzina odbioru:</h3>
+                {/* KOSZYK */}
+                <aside className="cart-panel">
+                    <h2 className="cart-title">🛒 Koszyk</h2>
 
-            <input type="time" value={pickupTime} onChange={(e) => setPickupTime(e.target.value)}/>
-    </div>
-    )
-}
+                    {cart.length === 0 ? (
+                        <p className="cart-empty">Koszyk jest pusty</p>
+                    ) : (
+                        <>
+                            <ul className="cart-list">
+                                {cart.map((item) => (
+                                    <li key={item.id} className="cart-item">
+                                        <span className="cart-item-name">{item.name}</span>
+                                        <div className="cart-item-controls">
+                                            <button className="qty-btn small" onClick={() => removeFromCart(item.id)}>−</button>
+                                            <span className="qty-count">{item.quantity}</span>
+                                            <button className="qty-btn small" onClick={() => addToCart(item)}>+</button>
+                                        </div>
+                                        <span className="cart-item-price">{item.price * item.quantity} zł</span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <div className="cart-total">
+                                <span>Suma:</span>
+                                <strong>{totalPrice} zł</strong>
+                            </div>
+
+                            <div className="cart-pickup">
+                                <label htmlFor="pickup-time">⏰ Godzina odbioru:</label>
+                                <input
+                                    id="pickup-time"
+                                    type="time"
+                                    value={pickupTime}
+                                    onChange={(e) => setPickupTime(e.target.value)}
+                                />
+                            </div>
+
+                            <button className="order-btn" onClick={handleOrder}>
+                                Złóż zamówienie
+                            </button>
+                            <button className="clear-btn" onClick={clearCart}>
+                                Wyczyść koszyk
+                            </button>
+                        </>
+                    )}
+
+                    {ordered && (
+                        <div className="order-success">
+                            ✅ Zamówienie złożone!
+                        </div>
+                    )}
+                </aside>
+            </div>
+        </div>
+    );
+};
 
 export default Menu;

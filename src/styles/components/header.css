@@ -1,51 +1,47 @@
 header {
-    height: 100px;
+    height: 80px;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: 100px;
-    background-color: rgba(67, 86, 121, 1);
+    align-items: center;
+    background: #435679;
+    padding: 0 20px;
 }
-header > * {
-    margin: 40px;
-}
+
 header img {
-    height: 90px;
-    cursor: pointer;
+    height: 60px;
     justify-self: center;
-    align-self: center;
 }
-header address {
-    cursor: pointer;
-}
-header .shopacc {
-    display: flex;
-    width: 120px;
-    justify-self: end;
-    align-self: center;
-}
+
 header .telnum {
     color: white;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
-    margin: 0  10px;
-}
-header p.telnum {
     display: flex;
     align-items: center;
-}
-header a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70px;
-    height: 40px;
-    font-size: 1.5em;
-    margin: 0 10px;
-    text-decoration: none;
-    border-radius: 50%;
-    color: white;
+    gap: 6px;
     cursor: pointer;
 }
-header a:hover {
-    background-color: rgb(54, 69, 97);
+
+header .shopacc {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-self: end;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.4em;
+    padding: 6px;
+}
+
+header button {
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
 }

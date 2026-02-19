@@ -1,46 +1,59 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-
+import "../styles/pages/auth.css";
 const Login = () => {
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const handleLogin = () => {
-        const users = JSON.parse(localStorage.getItem("users")) || [];
+    const handleLogin = (e) => {
+        e.preventDefault();
+        setError("");
 
-        const foundUser = users.find(
-            (u) => u.email === email && u.password === password
-        );
+        const success = login(email, password);
 
-        if (!foundUser) {
-            alert("Nieprawidłowy email lub hasło")
+        if (!success) {
+            setError("Nieprawidłowy email lub hasło");
             return;
         }
-        localStorage.setItem("currentUser", JSON.stringify(foundUser));
 
-        alert("Zalogowano!");
         navigate("/menu");
-    }
+    };
+
     return (
         <div className="authwrapper">
-            <form className="auth" id="login">
+            <form className="auth" id="login" onSubmit={handleLogin}>
                 <h1>Zaloguj się</h1>
-                <input name="email" placeholder="Email" type="email" required onChange={(e) => setEmail(e.target.value)}/>
-                <input name="password" placeholder="Hasło" type="password" required onChange={(e) => setPassword(e.target.value)}/>
-                <button type="submit" onClick={handleLogin}>Zaloguj</button>
+                {error && <p className="auth-error">{error}</p>}
+                <input
+                    name="email"
+                    placeholder="Email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                    name="password"
+                    placeholder="Hasło"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit">Zaloguj</button>
                 <label>
                     <input type="checkbox" name="remember" /> Zapamiętaj mnie
                 </label>
-                <p>Zapomniałeś <a>hasła?</a></p>
                 <p>Nie masz jeszcze konta? <Link to="/register">Stwórz je!</Link></p>
             </form>
         </div>
-    )
-}
+    );
+};
+
 export default Login;

@@ -3,8 +3,3 @@
     grid-template-rows: auto auto 1fr;
     min-height: 100vh;
 }
-main {
-    display: flex;
-    justify-content: center;
-    font-size: xx-large;
-}

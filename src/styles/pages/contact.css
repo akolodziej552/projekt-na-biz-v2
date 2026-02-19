@@ -1,15 +1,31 @@
 .contactwrapper {
     display: flex;
     justify-content: center;
+    padding: 40px 20px;
 }
+
 .contact {
-    width: 60%;
+    width: 100%;
+    max-width: 560px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
+
+.contact > * {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
 .contact h2 {
-    font-size: 1.5em;
+    font-size: 1.1em;
     font-weight: bold;
-    margin: 20px 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
 }
-.contact li {
-    margin: 10px 0 10px 15px;
-}
+
+.contact li { margin: 8px 0; font-size: 0.9em; }
+
+@media (max-width: 500px) { .contact { grid-template-columns: 1fr; } }

@@ -1,3 +1,4 @@
+import "../styles/pages/main.css";
 const Main = () => {
     return (
         <main>
