@@ -3,10 +3,12 @@ import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 const products = [
-    { id: 1, name: "Zapiekanka", price: 8, emoji: "🥖" },
-    { id: 2, name: "Hot Dog", price: 6, emoji: "🌭" },
-    { id: 3, name: "Kanapka", price: 5, emoji: "🥪" },
-    { id: 4, name: "Sok", price: 4, emoji: "🧃" },
+    {id: 1, name: "Hot Dog z dodatkami", price: 7, emoji: "🌭"},
+    {id: 2, name: "Hot Dog bez dodatków", price: 6, emoji: "🌭"},
+    {id: 3, name: "Zapiekanka z pieczarkami", price: 8, emoji: "🥖"},
+    {id: 4, name: "Zapiekanka z szynką", price: 9, emoji: "🥖"},
+    {id: 5, name: "Zapiekanka z salami", price: 9, emoji: "🥖"},
+    {id: 6, name: "Zapiekanka z kurczakiem", price: 9, emoji: "🥖"}
 ];
 
 const Menu = () => {
@@ -22,6 +24,13 @@ const Menu = () => {
     };
 
     const handleOrder = () => {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (!currentUser) {
+            alert("Musisz być zalogowany, aby złożyć zamówienie!");
+            return;
+        }
+        
         if (cart.length === 0) return;
         if (!pickupTime) {
             alert("Wybierz godzinę odbioru!");
@@ -29,7 +38,9 @@ const Menu = () => {
         }
 
         const orderNumber = generateOrderNumber();
+        
         const newOrder = {
+            userId: currentUser.id,
             number: orderNumber,
             items: cart,
             total: totalPrice,

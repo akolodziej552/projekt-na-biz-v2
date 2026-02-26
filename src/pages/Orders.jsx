@@ -8,7 +8,16 @@ const Orders = () => {
     useEffect(() => {
         const loadOrders = () => {
             const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
-            const sorted = [...savedOrders].sort((a, b) => {
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+            if (!currentUser) {
+                setOrders([]);
+                return;
+            }
+
+            const userOrders = savedOrders.filter((order) => String(order.userId) === String(currentUser.id));
+
+            const sorted = [...userOrders].sort((a, b) => {
                 return parseInt(b.number.split("-")[1]) - parseInt(a.number.split("-")[1]);
             });
             setOrders(sorted);
@@ -19,7 +28,10 @@ const Orders = () => {
         const handleStorageChange = (event) => {
             if (event.key === "orders") {
                 const newOrders = JSON.parse(event.newValue) || [];
-                newOrders.forEach((order) => {
+                const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                const userOrders = newOrders.filter((order) => order.userId === currentUser?.id);
+
+                userOrders.forEach((order) => {
                     if (order.status === "Gotowe do odbioru") {
                         setToast(`Zamówienie ${order.number} jest gotowe do odbioru!`);
                     }

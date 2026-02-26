@@ -8,10 +8,6 @@ const AdminPanel = () => {
     const { user } = useContext(AuthContext);
     const [orders, setOrders] = useState([]);
 
-    if (!user || user.role !== "admin") {
-        return <Navigate to="/" />;
-    }
-
     useEffect(() => {
         const loadOrders = () => {
             const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -50,6 +46,10 @@ const AdminPanel = () => {
     };
 
     const countByStatus = (s) => orders.filter((o) => o.status === s).length;
+
+    if (!user || user.role !== "admin") {
+        return <Navigate to="/" />;
+    }
 
     return (
         <div className="admin-page">

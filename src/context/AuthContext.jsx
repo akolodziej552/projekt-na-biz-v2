@@ -21,7 +21,7 @@ export function AuthProvider({children}) {
         }
 
         // Przywróć zalogowanego usera
-        const savedUser = JSON.parse(localStorage.getItem("loggedUser"));
+        const savedUser = JSON.parse(localStorage.getItem("currentUser"));
         if (savedUser) {
             setUser(savedUser);
         }
@@ -34,7 +34,6 @@ export function AuthProvider({children}) {
         );
         if (foundUser) {
             setUser(foundUser);
-            localStorage.setItem("loggedUser", JSON.stringify(foundUser));
             localStorage.setItem("currentUser", JSON.stringify(foundUser));
             return true;
         }
@@ -43,8 +42,8 @@ export function AuthProvider({children}) {
 
     const logout = () => {
         setUser(null);
-        localStorage.removeItem("loggedUser");
         localStorage.removeItem("currentUser");
+        localStorage.removeItem("cart");
     };
 
     return (

@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Contact from "./pages/Contact";
 import Menu from "./pages/Menu";
 import Orders from "./pages/Orders";
+import Cart from "./pages/Cart";
 import AdminPanel from "./pages/AdminPanel";
 import AdminRoute from "./components/AdminRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -26,8 +27,16 @@ const App = () => {
                     <ProtectedRoute>
                         <Menu />
                     </ProtectedRoute>} />
-                <Route path="/orders" element={<Orders/>}/>
+                <Route path="/orders" element={
+                    <ProtectedRoute>
+                        <Orders/>
+                    </ProtectedRoute>}/>
                 <Route path="/admin" element={<AdminRoute><AdminPanel/></AdminRoute>}/>
+                <Route path="/cart" element={
+                    <ProtectedRoute>
+                        <Cart />
+                    </ProtectedRoute>
+                }/>
             </Routes>
         </div>
     )
