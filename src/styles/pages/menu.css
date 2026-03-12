@@ -39,7 +39,7 @@
 }
 
 .product-name { font-weight: bold; }
-.product-price { color: #435679; font-size: 0.9em; }
+.product-price { color: #435679; font-size: 0.9em; margin-left: 8px;}
 
 .product-controls {
     display: flex;

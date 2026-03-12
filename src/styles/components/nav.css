@@ -22,3 +22,7 @@ nav a {
 nav a:hover {
     background: #435679;
 }
+nav .navicon {
+    font-size: 1.3em;
+    margin: 0 0 0 5px;
+}

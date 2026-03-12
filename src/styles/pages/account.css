@@ -1,0 +1,103 @@
+.account-page {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.account-title {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.account-subtitle {
+    font-size: 0.9em;
+    color: #777;
+    margin: 28px;
+}
+.account-section {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+.account-section h2 {
+    font-size: 1.05em;
+    font-weight: bold;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+.field label {
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #555;
+}
+.field input {
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    font-size: 0.95em;
+    width: 100%;
+}
+.field input:focus {
+    outline: none;
+    border-color: #435679;
+}
+.msg {
+    font-size: 0.88em;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid;
+}
+.msg--success {
+    color: #1a7a50;
+    border-color: #1a7a50;
+    background-color: #f0faf5;
+}
+.msg--error {
+    color: #c0392b;
+    border-color: #c0392b;
+    background-color: #fdf0f0;
+}
+.btn-save {
+    background-color: #435679;
+    color: white;
+    border: none;
+    padding: 9px 20px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-save:hover {
+    background-color: #364561;
+}
+.account-section--danger {
+    border-color: #e74c3c;
+}
+.account-section--danger h2 {
+    color: #c0392b;
+    border-bottom-color: #fad7d5;
+}
+.account-section--danger p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 14px;
+}
+.btn-delete {
+    background-color: white;
+    color:#c0392b;
+    border: 1px solid #c0392b;
+    padding: 9px 20px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-delete:hover {
+    background-color: #fdecea;
+}

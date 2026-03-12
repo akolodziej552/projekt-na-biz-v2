@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/pages/auth.css";
 const Login = () => {
@@ -9,13 +8,14 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [remember, setRemember] = useState(false);
     const [error, setError] = useState("");
 
     const handleLogin = (e) => {
         e.preventDefault();
         setError("");
 
-        const success = login(email, password);
+        const success = login(email, password, remember);
 
         if (!success) {
             setError("Nieprawidłowy email lub hasło");
@@ -47,9 +47,15 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit">Zaloguj</button>
-                <label>
-                    <input type="checkbox" name="remember" /> Zapamiętaj mnie
-                </label>
+                <div className="remember">
+                    <input
+                        id="remember"
+                        type="checkbox"
+                        checked={remember}
+                        onChange={(e) => setRemember(e.target.checked)}
+                    />
+                    <label htmlFor="remember">Zapamiętaj mnie</label>
+                </div>
                 <p>Nie masz jeszcze konta? <Link to="/register">Stwórz je!</Link></p>
             </form>
         </div>

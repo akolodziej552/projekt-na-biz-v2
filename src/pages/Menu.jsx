@@ -5,10 +5,25 @@ import { CartContext } from "../context/CartContext";
 const products = [
     {id: 1, name: "Hot Dog z dodatkami", price: 7, emoji: "🌭"},
     {id: 2, name: "Hot Dog bez dodatków", price: 6, emoji: "🌭"},
-    {id: 3, name: "Zapiekanka z pieczarkami", price: 8, emoji: "🥖"},
-    {id: 4, name: "Zapiekanka z szynką", price: 9, emoji: "🥖"},
-    {id: 5, name: "Zapiekanka z salami", price: 9, emoji: "🥖"},
-    {id: 6, name: "Zapiekanka z kurczakiem", price: 9, emoji: "🥖"}
+    {id: 3, name: "Zapiekanka z pieczarkami", price: 8, emoji: "🍄🥖"},
+    {id: 4, name: "Zapiekanka z szynką", price: 9, emoji: "🥖🍖"},
+    {id: 5, name: "Zapiekanka z salami", price: 9, emoji: "🥖🍕"},
+    {id: 6, name: "Zapiekanka z kurczakiem", price: 9, emoji: "🥖🍗"},
+    {id: 7, name: "Buła z gyrosem", price: 16, emoji: "🥙"},
+    {id: 8, name: "Wrap z kurczaka", price: 16, emoji: "🌯"},
+    {id: 9, name: "Panini z salami", price: 8, emoji: "🥪"},
+    {id: 10, name: "Panini z kurczakiem", price: 8, emoji: "🥪🍗"},
+    {id: 11, name: "Drożdżówka (dżem, budyń)", price: 4.50, emoji: "🧁"},
+    {id: 12, name: "Drożdżówka paluch", price: 5, emoji: "🥐"},
+    {id: 13, name: "Drożdżówka", price: 4, emoji: "🥐"},
+    {id: 14, name: "Obwarzanek", price: 3, emoji: "🥨"},
+    {id: 15, name: "Kanapka mix", price: 7, emoji: "🥪"},
+    {id: 16, name: "Gorąca czekolada", price: 6.50, emoji: "🍫☕"},
+    {id: 17, name: "Kawa czarna", price: 6.50, emoji: "☕"},
+    {id: 18, name: "Kawa biała", price: 7, emoji: "☕🥛"},
+    {id: 19, name: "Herbata", price: 4, emoji: "🍵"},
+    {id: 20, name: "Tosty (2 szt.)", price: 9, emoji: "🍞"},
+    {id: 21, name: "Herbata zimowa", price: 7, emoji: "🍵🍊"}
 ];
 
 const Menu = () => {

@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import Menu from "./pages/Menu";
 import Orders from "./pages/Orders";
 import Cart from "./pages/Cart";
+import Account from "./pages/Account";
 import AdminPanel from "./pages/AdminPanel";
 import AdminRoute from "./components/AdminRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -35,6 +36,11 @@ const App = () => {
                 <Route path="/cart" element={
                     <ProtectedRoute>
                         <Cart />
+                    </ProtectedRoute>
+                }/>
+                <Route path="/account" element={
+                    <ProtectedRoute>
+                        <Account />
                     </ProtectedRoute>
                 }/>
             </Routes>

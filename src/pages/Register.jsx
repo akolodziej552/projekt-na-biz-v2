@@ -20,6 +20,10 @@ const Register = () => {
             setError("Użytkownik z tym emailem już istnieje!");
             return;
         }
+        if (password.length < 4) {
+            setError("Hasło musi mieć co najmniej 4 znaki.")
+            return;
+        }
 
         const newUser = {
             id: Date.now(),
