@@ -11,6 +11,7 @@ const ADMIN = {
 
 export function AuthProvider({children}) {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Seed konta admina przy starcie
@@ -24,7 +25,8 @@ export function AuthProvider({children}) {
         const savedUser = JSON.parse(localStorage.getItem("currentUser")) || JSON.parse(sessionStorage.getItem("currentUser"));
         if (savedUser) {
             setUser(savedUser);
-        }
+        };
+        setLoading(false);
     }, []);
 
     const login = (email, password, remember = false) => {
@@ -71,7 +73,7 @@ export function AuthProvider({children}) {
         logout();
     }
     return (
-        <AuthContext.Provider value={{user, login, logout, updateUser, deleteAccount}}>
+        <AuthContext.Provider value={{user, login, logout, updateUser, deleteAccount, loading}}>
             {children}
         </AuthContext.Provider>
     );

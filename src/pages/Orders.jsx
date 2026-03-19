@@ -1,37 +1,45 @@
 import "../styles/pages/orders.css";
-import { useState, useEffect } from "react";
-import { FaClipboardList, FaClock, FaCheckCircle, FaCalendar } from "react-icons/fa";
+import { useState, useEffect,useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { FaClipboardList, FaClock, FaCheckCircle, FaCalendar, FaTimes} from "react-icons/fa";
+import { fmt } from "../utils/orderUtils";
 
 const Orders = () => {
+    const { user } = useContext(AuthContext);
     const [orders, setOrders] = useState([]);
     const [toast, setToast] = useState(null);
-    const fmt = (price) => price.toFixed(2).replace(".", ",") + " zł";
 
-    useEffect(() => {
-        const loadOrders = () => {
+    const loadOrders = () => {
             const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
-            const currentUser = JSON.parse(localStorage.getItem("currentUser")) || JSON.parse(sessionStorage.getItem("currentUser"));
 
-            if (!currentUser) {
+            if (!user) {
                 setOrders([]);
                 return;
             }
 
-            const userOrders = savedOrders.filter((order) => String(order.userId) === String(currentUser.id));
+            const userOrders = savedOrders.filter((order) => String(order.userId) === String(user.id));
 
             const sorted = [...userOrders].sort((a, b) => {
                 return parseInt(b.number.split("-")[1]) - parseInt(a.number.split("-")[1]);
             });
             setOrders(sorted);
-        };
+    };
 
+    const cancelOrder = (orderNumber) => {
+            if (!window.confirm("Czy na pewno chcesz anulować to zamówienie?")) return;
+            const allOrders = JSON.parse(localStorage.getItem("orders")) || [];
+            const updated = allOrders.map((o) => o.number === orderNumber ? { ...o, status: "Anulowane" } : o);
+            localStorage.setItem("orders", JSON.stringify(updated));
+            loadOrders();
+    }
+    
+    useEffect(() => {
         loadOrders();
 
         const handleStorageChange = (event) => {
             if (event.key === "orders") {
                 const newOrders = JSON.parse(event.newValue) || [];
-                const currentUser = JSON.parse(localStorage.getItem("currentUser")) || JSON.parse(sessionStorage.getItem("currentUser"));
-                const userOrders = newOrders.filter((order) => order.userId === currentUser?.id);
+                const userOrders = newOrders.filter((order) => order.userId === user?.id);
 
                 userOrders.forEach((order) => {
                     if (order.status === "Gotowe do odbioru") {
@@ -58,6 +66,7 @@ const Orders = () => {
             case "Nowe": return "status status--new";
             case "W trakcie przygotowania": return "status status--progress";
             case "Gotowe do odbioru": return "status status--ready";
+            case "Anulowane": return "status status--cancelled";
             default: return "status";
         }
     };
@@ -78,6 +87,11 @@ const Orders = () => {
                             <div className="order-card-header">
                                 <span className="order-number">{order.number}</span>
                                 <span className={getStatusClass(order.status)}>{order.status}</span>
+                                {order.status === "Nowe" && (
+                                    <button className="btn-cancel" onClick={() => cancelOrder(order.number)}>
+                                        <FaTimes/>
+                                    </button>
+                                )}
                             </div>
                             <div className="order-card-body">
                                 <div className="order-meta">

@@ -4,11 +4,11 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import { FaClipboardList, FaTrash, FaClock, FaSync, FaCheckCircle } from "react-icons/fa";
+import { fmt } from "../utils/orderUtils";
 
 const AdminPanel = () => {
     const { user } = useContext(AuthContext);
     const [orders, setOrders] = useState([]);
-    const fmt = (price) => price.toFixed(2).replace(".", ",") + " zł";
 
     useEffect(() => {
         const loadOrders = () => {

@@ -1,26 +1,20 @@
 import "../styles/pages/cart.css";
 import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaClock, FaCheckCircle } from "react-icons/fa";
+import { fmt, generateOrderNumber } from "../utils/orderUtils";
 
 const Cart = () => {
     const { cart, addToCart, removeFromCart, clearCart, totalPrice } = useContext(CartContext);
+    const { user } = useContext(AuthContext);
     const [pickupTime, setPickupTime] = useState("");
     const [ordered, setOrdered] = useState(false);
     const navigate = useNavigate();
-    const fmt = (price) => price.toFixed(2).replace(".", ",") + " zł";
-
-    const generateOrderNumber = () => {
-        let counter = localStorage.getItem("orderCounter");
-        counter = counter ? parseInt(counter) + 1 : 1;
-        localStorage.setItem("orderCounter", counter);
-        return `ZAM-${String(counter).padStart(4, "0")}`;
-    };
 
     const handleOrder = () => {
-        const currentUser = JSON.parse(localStorage.getItem("currentUser")) || JSON.parse(sessionStorage.getItem("currentUser"));
-        if (!currentUser) {
+        if (!user) {
             alert("Musisz być zalogowany!");
             return;
         }
@@ -31,7 +25,7 @@ const Cart = () => {
         }
         const orderNumber = generateOrderNumber();
         const newOrder = {
-            userId: currentUser.id,
+            userId: user.id,
             number: orderNumber,
             items: cart,
             total: totalPrice,

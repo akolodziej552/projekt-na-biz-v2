@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import Account from "./pages/Account";
 import AdminPanel from "./pages/AdminPanel";
 import AdminRoute from "./components/AdminRoute";
+import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./styles/app.css";
 import { Routes, Route } from "react-router-dom";
@@ -43,6 +44,7 @@ const App = () => {
                         <Account />
                     </ProtectedRoute>
                 }/>
+                <Route path="*" element={<NotFound />}/>
             </Routes>
         </div>
     )

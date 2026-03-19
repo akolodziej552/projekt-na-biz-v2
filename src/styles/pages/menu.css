@@ -50,7 +50,10 @@
     font-size: 0.9em; 
     margin-left: 0;
 }
-
+.product-img {
+    height: auto;
+    width: 40px;
+}
 .product-controls {
     display: flex;
     align-items: center;
