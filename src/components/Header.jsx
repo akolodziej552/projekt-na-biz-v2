@@ -7,15 +7,17 @@ import { CartContext } from "../context/CartContext";
 import { FaPhone } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
+import { useToast } from "../context/ToastContext";
 
 const Header = () => {
+    const { showToast } = useToast();
     const { cart } = useContext(CartContext);
     const { user, logout } = useContext(AuthContext);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const copyTel = () => {
         navigator.clipboard.writeText("730379195");
-        alert("Numer telefonu został skopiowany!");
+        ShowToast("Numer telefonu został skopiowany!", "success");
     }
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity,0);
     return (

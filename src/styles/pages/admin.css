@@ -179,6 +179,69 @@
     color: #1a7a50; 
 }
 
+.admin-tabs {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+}
+.admin-tab {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    display: flex;
+    align-items: center;
+}
+.admin-tab:hover {
+    color: #435679;
+}
+.admin-tab--active {
+    color: #435679;
+    border-bottom-color: #435679;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+.users-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.85em;
+    color: #666;
+    border-bottom: 2px solid #ccc;
+    background-color: #f5f5f5;
+}
+
+.users-table td {
+    padding: 10px 14px;
+    font-size: 0.9em;
+    border-bottom: 1px solid #eee;
+}
+
+.users-table tr:last-child td {
+    border-bottom: none;
+}
+
+.user-id {
+    color: #999;
+    font-size: 0.8em;
+    font-family: monospace;
+}
+
+.btn-sm {
+    padding: 5px 8px;
+    font-size: 0.8em;
+}
+
 @media (max-width: 560px) { 
     .admin-stats { 
         grid-template-columns: repeat(2, 1fr); 

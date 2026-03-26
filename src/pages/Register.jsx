@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/pages/auth.css";
+import { useToast } from "../context/ToastContext";
 
 const Register = () => {
+    const { showToast } = useToast();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -35,7 +37,7 @@ const Register = () => {
         users.push(newUser);
         localStorage.setItem("users", JSON.stringify(users));
 
-        alert("Konto utworzone! Możesz się teraz zalogować.");
+        showToast("Konto utworzone! Możesz się teraz zalogować.", "success");
         navigate("/login");
     };
 

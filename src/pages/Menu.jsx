@@ -5,8 +5,10 @@ import { FaShoppingCart, FaClock, FaCheckCircle } from "react-icons/fa";
 import { fmt, generateOrderNumber } from "../utils/orderUtils";
 import products from "../data/products";
 import { AuthContext } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 
 const Menu = () => {
+    const { showToast } = useToast();
     const { cart, addToCart, removeFromCart, clearCart, totalPrice } = useContext(CartContext);
     const { user } = useContext(AuthContext);
     const [pickupTime, setPickupTime] = useState("");
@@ -14,12 +16,12 @@ const Menu = () => {
 
     const handleOrder = () => {
         if (!user) {
-            alert("Musisz być zalogowany, aby złożyć zamówienie!");
+            showToast("Musisz być zalogowany, aby złożyć zamówienie!", "error");
             return;
         }
         if (cart.length === 0) return;
         if (!pickupTime) {
-            alert("Wybierz godzinę odbioru!");
+            showToast("Wybierz godzinę odbioru!", "error");
             return;
         }
         const orderNumber = generateOrderNumber();
