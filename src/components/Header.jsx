@@ -17,7 +17,7 @@ const Header = () => {
 
     const copyTel = () => {
         navigator.clipboard.writeText("730379195");
-        ShowToast("Numer telefonu został skopiowany!", "success");
+        showToast("Numer telefonu został skopiowany!", "success");
     }
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity,0);
     return (
